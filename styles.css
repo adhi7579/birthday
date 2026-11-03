@@ -223,3 +223,84 @@ h4 {
         transform: translate(-50%, -50%) scale(1);
     }
 }
+
+
+
+/* Password displayed directly on the greeting card */
+
+.card.locked .imgBox {
+    transform: none !important;
+}
+
+.card.locked:hover {
+    transform: translate(-50%, -50%) perspective(2000px);
+}
+
+#cardPassword {
+    position: absolute;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(
+        135deg,
+        rgba(25, 15, 20, 0.95),
+        rgba(120, 25, 25, 0.94)
+    );
+    padding: 15px;
+    box-sizing: border-box;
+    text-align: center;
+    transition: opacity 0.6s ease;
+}
+
+.password-content {
+    width: 100%;
+    color: white;
+}
+
+.password-content h2 {
+    font-family: 'Amatic SC', cursive;
+    font-size: 35px;
+}
+
+.password-content p {
+    font-size: 15px;
+}
+
+#passwordInput {
+    width: 90%;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 2px solid #e67e22;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 18px;
+    letter-spacing: 5px;
+    margin: 12px 0;
+    outline: none;
+}
+
+#unlockButton {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 10px;
+    background: #e67e22;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+#unlockButton:hover {
+    background: #c0392b;
+}
+
+#errorMessage {
+    color: #ffb3b3;
+    min-height: 20px;
+}
+
+.password-hidden {
+    opacity: 0;
+    pointer-events: none;
+}

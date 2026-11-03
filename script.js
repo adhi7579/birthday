@@ -1,77 +1,74 @@
 
-// Correct password
-const correctPassword = "123456";
-
-// Wait until the page loads
 document.addEventListener("DOMContentLoaded", () => {
 
-    // Create password screen
+    const correctPassword = "123456";
+
+    const card = document.querySelector(".card");
+    const imgBox = document.querySelector(".imgBox");
+
+    // Create password overlay inside the card
     const passwordScreen = document.createElement("div");
-    passwordScreen.id = "passwordScreen";
+
+    passwordScreen.id = "cardPassword";
 
     passwordScreen.innerHTML = `
-        <div class="password-box">
-            <h1>🎂 A Special Surprise! 🎂</h1>
-            <p>Someone has prepared a birthday surprise for you.</p>
-            <p>Enter the secret password to open it ❤️</p>
+        <div class="password-content">
+            <h2>🎂 Happy Birthday! 🎂</h2>
+            <p>A special surprise is waiting for you ❤️</p>
 
             <input
                 type="password"
                 id="passwordInput"
-                placeholder="Enter 6-digit password"
+                placeholder="Enter secret password"
                 maxlength="6"
             />
 
-            <button id="unlockButton">Unlock Surprise 🔓</button>
+            <button id="unlockButton">Open My Surprise ❤️</button>
 
             <p id="errorMessage"></p>
         </div>
     `;
 
-    document.body.appendChild(passwordScreen);
+    // Position password on the card itself
+    card.appendChild(passwordScreen);
 
-    // Hide birthday card initially
-    const card = document.querySelector(".card");
-    card.style.display = "none";
+    // Disable card hover until password is correct
+    card.classList.add("locked");
 
-    // Password elements
-    const passwordInput = document.getElementById("passwordInput");
-    const unlockButton = document.getElementById("unlockButton");
-    const errorMessage = document.getElementById("errorMessage");
+    const input = document.getElementById("passwordInput");
+    const button = document.getElementById("unlockButton");
+    const error = document.getElementById("errorMessage");
 
-    // Unlock function
     function unlockCard() {
 
-        if (passwordInput.value === correctPassword) {
+        if (input.value === correctPassword) {
 
-            errorMessage.textContent = "";
+            error.textContent = "";
 
-            passwordScreen.classList.add("fade-out");
+            // Remove password overlay
+            passwordScreen.classList.add("password-hidden");
+
+            // Enable card opening
+            card.classList.remove("locked");
 
             setTimeout(() => {
                 passwordScreen.remove();
-                card.style.display = "block";
-                card.classList.add("show-card");
-            }, 700);
+            }, 600);
 
         } else {
 
-            errorMessage.textContent = "❌ Wrong password! Try again.";
-
-            passwordInput.value = "";
-            passwordInput.focus();
+            error.textContent = "❌ Incorrect password! Try again.";
+            input.value = "";
+            input.focus();
         }
     }
 
-    // Button click
-    unlockButton.addEventListener("click", unlockCard);
+    button.addEventListener("click", unlockCard);
 
-    // Enter key support
-    passwordInput.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") {
+    input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
             unlockCard();
         }
     });
 
-    passwordInput.focus();
 });
